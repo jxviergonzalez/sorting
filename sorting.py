@@ -9,7 +9,6 @@ if cmp(a, b) returns  1, then a > b;
 if cmp(a, b) returns  0, then a == b.
 '''
 
-import random
 
 def cmp_standard(a, b):
     '''
@@ -84,6 +83,7 @@ def _merged(xs, ys, cmp=cmp_standard):
     res.extend(ys[j:])
     return res
 
+
 def merge_sorted(xs, cmp=cmp_standard):
     '''
     Merge sort is the standard O(n log n) sorting algorithm.
@@ -112,12 +112,12 @@ def merge_sorted(xs, cmp=cmp_standard):
 
     return merge(left, right, cmp)
 
+
 def quick_sorted(xs, cmp=cmp_standard):
     '''
     Quicksort is like mergesort,
     but it uses a different strategy to split the list.
     Instead of splitting the list down the middle,
-    a "pivot" value is randomly selected, 
 
     The pseudocode is:
 
@@ -144,6 +144,7 @@ def quick_sorted(xs, cmp=cmp_standard):
     gt = quick_sorted(gt, cmp)
 
     return lt + eq + gt
+
 
 def quick_sort(xs, cmp=cmp_standard):
     '''
