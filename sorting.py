@@ -64,20 +64,26 @@ def _merged(xs, ys, cmp=cmp_standard):
 
     NOTE:
     In python, helper functions are frequently prepended with the _.
-    This is a signal to users of a library that these functions are for "internal use only",
     and not part of the "public interface".
 
-    This _merged function could be implemented as a local function within the merge_sorted scope rather than a global function.
-    The downside of this is that the function can then not be tested on its own.
-    Typically, you should only implement a function as a local function if it cannot function on its own
     (like the go functions from binary search).
     If it's possible to make a function stand-alone,
-    then you probably should do that and write test cases for the stand-alone function.
 
     >>> _merged([1, 3, 5], [2, 4, 6])
     [1, 2, 3, 4, 5, 6]
     '''
-
+    i, j = 0, 0
+    res = []
+    while i < len(xs) and j < len(ys):
+        if cmp(xs[i], ys[j]) == -1:
+            res.append(xs[i])
+            i += 1
+        else:
+            res.append(ys[j])
+            j += 1
+    res.extend(xs[i:])
+    res.extend(ys[j:])
+    return res
 
 def merge_sorted(xs, cmp=cmp_standard):
     '''
@@ -95,7 +101,17 @@ def merge_sorted(xs, cmp=cmp_standard):
     You should return a sorted version of the input list xs.
     You should not modify the input list xs in any way.
     '''
+    if len(xs) <= 1:
+        return xs
 
+    mid = len(xs) // 2
+    left = xs[:mid]
+    right = xs[mid:]
+
+    left = merge_sorted(left, cmp)
+    right = merge_sorted(right, cmp)
+
+    return merge(left, right, cmp)
 
 def quick_sorted(xs, cmp=cmp_standard):
     '''
@@ -103,7 +119,6 @@ def quick_sorted(xs, cmp=cmp_standard):
     but it uses a different strategy to split the list.
     Instead of splitting the list down the middle,
     a "pivot" value is randomly selected, 
-    and the list is split into a "less than" sublist and a "greater than" sublist.
 
     The pseudocode is:
 
@@ -120,7 +135,16 @@ def quick_sorted(xs, cmp=cmp_standard):
     You should return a sorted version of the input list xs.
     You should not modify the input list xs in any way.
     '''
+    if len(xs) <= 1:
+        return xs
 
+    pivot = xs[0]
+    lt, eq, gt = partition(xs, pivot, cmp)
+
+    lt = quick_sorted(lt, cmp)
+    gt = quick_sorted(gt, cmp)
+
+    return lt + eq + gt
 
 def quick_sort(xs, cmp=cmp_standard):
     '''
