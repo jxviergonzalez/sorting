@@ -4,7 +4,6 @@ Python provides built-in sort/sorted functions that use timsort internally.
 You cannot use these built-in functions anywhere in this file.
 
 Every function in this file takes a comparator `cmp` as input
-which controls how the elements of the list should be compared against each other:
 If cmp(a, b) returns -1, then a < b;
 if cmp(a, b) returns  1, then a > b;
 if cmp(a, b) returns  0, then a == b.
@@ -149,19 +148,4 @@ def quick_sorted(xs, cmp=cmp_standard):
 def quick_sort(xs, cmp=cmp_standard):
     '''
     EXTRA CREDIT:
-    The main advantage of quick_sort is that it can be implemented "in-place".
-    This means that no extra lists are allocated,
-    or that the algorithm uses Theta(1) additional memory.
-    Merge sort, on the other hand, must allocate intermediate lists for the merge step,
-    and has a Theta(n) memory requirement.
-    Even though quick sort and merge sort both have the same Theta(n log n) runtime,
-    this more efficient memory usage typically makes quick sort faster in practice.
-    (We say quick sort has a lower "constant factor" in its runtime.)
-    The downside of implementing quick sort in this way is that it will no longer be a [stable sort](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability),
-    but this is typically inconsequential.
-
-    Follow the pseudocode of the Lomuto partition scheme given on wikipedia
-    (https://en.wikipedia.org/wiki/Quicksort#Algorithm)
-    to implement quick_sort as an in-place algorithm.
-    You should directly modify the input xs variable instead of returning a copy of the list.
     '''
